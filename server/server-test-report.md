@@ -1,4 +1,4 @@
-# DATABASE ERRORS
+# DATABASE 
 Steps to reproduce:
 Run: 
 ```
@@ -10,6 +10,22 @@ Run:
     CREATE DATABASE lending;
 ```
 Creating the database in this file means that the tables will be created in another database, NOT `lending`
+
+Also, if we are creating a database `lending`, it shouldn't be called `lendingapp` in the code:
+```
+server/pool.js Line 7
+```
+
+```javascript
+const connectDatabase = () => {
+    return new pg.Pool({
+    user: 'postgres',
+    password: '121397',
+    database: 'lending',
+    host: 'localhost',
+    });
+};
+```
 
 ### Issue 2
 ```
@@ -55,4 +71,19 @@ UPDATE clients SET firstname = 'Ian Czar', lastname = 'Dino', contactNumber = 11
 ```
 psql:/Users/raphaelndonga/incourage/Loan-Management-System/server/database/database.sql:79: ERROR:  insert or update on table "payments" violates foreign key constraint "payments_loan_id_fkey"
 DETAIL:  Key (loan_id)=(2) is not present in table "loans".
+```
+
+# BACKEND SERVER
+
+### Issue 1 - error: relation "admins" does not exist
+steps to reproduce:
+```
+POST request on endpoint: /login
+```
+
+### Issue 2 - TypeError: Cannot read properties of undefined (reading 'password')
+steps to reproduce:
+
+```
+POST request on endpoint: /login using name and password that is not in database
 ```
