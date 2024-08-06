@@ -104,6 +104,7 @@ app.post('/register', async (req, res) => {
 
     if (admin.rows.length > 0) {
       res.status(401).send('User already exist');
+      return
     }
 
     // bcrypt

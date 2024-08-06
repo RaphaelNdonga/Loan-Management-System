@@ -87,3 +87,10 @@ steps to reproduce:
 ```
 POST request on endpoint: /login using name and password that is not in database
 ```
+
+### Issue 3 - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+steps to reproduce:
+
+```
+POST request on endpoint: /register using details that already exist
+```
