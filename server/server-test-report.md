@@ -1,5 +1,5 @@
 # DATABASE 
-Steps to reproduce:
+Steps to reproduce all these database issues:
 Run: 
 ```
     psql -U *your_username* -d *lending* -f *path_to_database.sql*
