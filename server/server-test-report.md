@@ -94,3 +94,11 @@ steps to reproduce:
 ```
 POST request on endpoint: /register using details that already exist
 ```
+
+### Issue 4 - Sending Unexpected token 'U', "User already exist" is not valid JSON
+steps to reproduce
+
+```
+POST request on endpoint: /register using details that already exist
+```
+

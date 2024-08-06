@@ -103,7 +103,7 @@ app.post('/register', async (req, res) => {
     );
 
     if (admin.rows.length > 0) {
-      res.status(401).send('User already exist');
+      res.status(401).send({ message: "User already exists" });
       return
     }
 
