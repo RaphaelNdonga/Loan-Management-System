@@ -2,7 +2,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles"
   },
   "dependencies": {
     "@types/jest": "^29.5.12",
