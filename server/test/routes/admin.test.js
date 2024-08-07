@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import request from "supertest"
-describe("Auth routes test", function () {
+describe("Admin functionality test", function () {
     const testUrl = "http://localhost:8000"
     let token;
     let user;

@@ -103,4 +103,8 @@ POST request on endpoint: /register using details that already exist
 ```
 
 ### Issue 5 - /addAdmin endpoint is exactly the same as /register endpoint
+see server/index.js Lines 89 & Line 49
+
+### Issue 6 - /addClient returns query object instead of json object with user data
+See server/index.js Line 81
 
