@@ -106,4 +106,40 @@ describe("Auth routes test", function () {
                 return done()
             })
     })
+    test("adds admin", function (done) {
+        const test_user = {
+            firstname: "Tester",
+            lastname: "McTester",
+            contactNumber: "123456789",
+            address: "Testing environment",
+            email: "tester@test.com",
+            username: "tester01",
+            password: "password",
+        }
+        request(testUrl)
+            .post("/addAdmin")
+            .send(test_user)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /addAdmin", err)
+                    return done(err)
+                }
+                token = res.body["token"]
+                return done()
+            })
+    })
+    test("deletes added admin", function (done) {
+        request(testUrl)
+            .delete(`/admin/${user.id + 1}`)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in delete /client/:id", err)
+                    return done(err)
+                }
+                console.log("deleted id: ", user.id)
+                return done()
+            })
+    })
 })
