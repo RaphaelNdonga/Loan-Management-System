@@ -1,11 +1,9 @@
 import { connectDatabase } from "../../pool"
 
 describe("Postgresql database test", function () {
-    afterAll(async () => {
-        await connectDatabase().end()
-    })
     it("should connect to database", async function () {
-        const client = await connectDatabase().connect();
+        const db = connectDatabase()
+        const client = await db.connect();
         try {
             const result = await client.query("SELECT NOW()")
             expect(result.rows.length).toBe(1)
@@ -13,6 +11,7 @@ describe("Postgresql database test", function () {
             throw (err)
         } finally {
             client.release()
+            db.end()
         }
     })
 })
