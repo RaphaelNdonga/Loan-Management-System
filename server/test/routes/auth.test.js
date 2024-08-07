@@ -46,7 +46,23 @@ describe("Auth routes test", function () {
                     console.log("Error in /register", err)
                     return done(err)
                 }
-                console.log(res.body)
+                return done()
+            })
+    })
+    test("can login", function (done) {
+        const user = {
+            username: "tester01",
+            password: "password"
+        }
+        request(testUrl)
+            .post("/login")
+            .send(user)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /login", err)
+                    return done(err)
+                }
                 return done()
             })
     })
