@@ -102,3 +102,5 @@ steps to reproduce
 POST request on endpoint: /register using details that already exist
 ```
 
+### Issue 5 - /addAdmin endpoint is exactly the same as /register endpoint
+

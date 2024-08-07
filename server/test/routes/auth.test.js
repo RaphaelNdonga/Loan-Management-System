@@ -80,6 +80,19 @@ describe("Auth routes test", function () {
                 return done()
             })
     })
+    test("gets all admins", function (done) {
+        request(testUrl)
+            .get("/allAdmins")
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /allAdmins", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
     test("deletes admin", function (done) {
         request(testUrl)
             .delete(`/admin/${user.id}`)
