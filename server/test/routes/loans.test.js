@@ -102,6 +102,38 @@ describe("Loans functionality test", function (done) {
                 return done()
             })
     })
+
+    test("Gets all loans", function (done) {
+        request(testUrl)
+            .get("/allLoans")
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in GET /allLoans: ", err)
+                    return done(err)
+                }
+                console.log(res.body)
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+    })
+
+    test("Get loans of one client", function (done) {
+        request(testUrl)
+            .get(`/loans/${mainLoan.client_id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in get /loans/:id ", err)
+                    return done(err)
+                }
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+    })
+
     test("Deletes loan without id in route parameter", function (done) {
         request(testUrl)
             .delete(`/loans/${mainLoan.id}`)
@@ -130,21 +162,6 @@ describe("Loans functionality test", function (done) {
             })
     })
 
-    test("Gets all loans", function (done) {
-        request(testUrl)
-            .get("/allLoans")
-            .set("Authorization", token)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) {
-                    console.log("Error in GET /allLoans: ", err)
-                    return done(err)
-                }
-                console.log(res.body)
-                expect(res.body.length).toBeGreaterThan(0)
-                return done()
-            })
-    })
 
     test("deletes admin", function (done) {
         request(testUrl)
