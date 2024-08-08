@@ -233,6 +233,21 @@ describe("Loans functionality test", function () {
             })
     })
 
+    test("Gets client payments to a single loan", function (done) {
+        request(testUrl)
+            .get(`/payments/${mainPayment.client_id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in get /payments/:id", err)
+                    return done(err)
+                }
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+    })
+
     test("Get all payments", function (done) {
         request(testUrl)
             .get("/allPayments")
