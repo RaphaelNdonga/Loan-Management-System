@@ -99,6 +99,21 @@ describe("Client functionality test", function () {
             })
     })
 
+    test("Gets client through email", function (done) {
+        request(testUrl)
+            .get(`/email/${client.email}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error GET /email/:email")
+                    return done(err)
+                }
+                expect(res.body.id).toBe(client.id)
+                return done()
+            })
+    })
+
     test("Deletes client", function (done) {
         request(testUrl)
             .delete(`/clients/${client.id}`)
