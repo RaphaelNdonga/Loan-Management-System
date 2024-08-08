@@ -7,6 +7,7 @@ describe("Loans functionality test", function () {
     let mainLoan
     let mainLoan2
     let mainPayment
+    let mainPayment2
 
     test("register endpoint 200 (ok)", function (done) {
         const user = {
@@ -214,8 +215,7 @@ describe("Loans functionality test", function () {
             collected_by: 'some date',
             new_balance: 4800,
             method: '',
-            client_id: '1',
-            loan_id: '1'
+            client_id: '1'
         }
         request(testUrl)
             .post(`/payments/${mainLoan.id}`)
@@ -266,6 +266,19 @@ describe("Loans functionality test", function () {
     test("Delete payment for loan", function (done) {
         request(testUrl)
             .delete(`/payment/${mainPayment.id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in delete /payment/:id", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
+    test("Delete second payment for loan", function (done) {
+        request(testUrl)
+            .delete(`/payment/${mainPayment2.id}`)
             .set("Authorization", token)
             .expect(200)
             .end(function (err, res) {

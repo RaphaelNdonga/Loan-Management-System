@@ -110,3 +110,6 @@ See server/index.js Line 81
 
 ### Issue 7 - There is an auth required in GET /client/:id and not in GET /admin/:id
 
+### Issue 8 - Conflicting endpoints: POST /loans/ occurs twice
+see server/index.js Line 331 & Line 508
+
