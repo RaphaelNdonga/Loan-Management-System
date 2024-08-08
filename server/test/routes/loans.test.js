@@ -233,6 +233,21 @@ describe("Loans functionality test", function () {
             })
     })
 
+    test("Get all payments", function (done) {
+        request(testUrl)
+            .get("/allPayments")
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in get /allPayments", err)
+                    return done(err)
+                }
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+    })
+
     test("Delete payment for loan", function (done) {
         request(testUrl)
             .delete(`/payment/${mainPayment.id}`)
