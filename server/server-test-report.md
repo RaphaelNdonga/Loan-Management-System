@@ -108,3 +108,5 @@ see server/index.js Lines 89 & Line 49
 ### Issue 6 - /addClient returns query object instead of json object with user data
 See server/index.js Line 81
 
+### Issue 7 - There is an auth required in GET /client/:id and not in GET /admin/:id
+

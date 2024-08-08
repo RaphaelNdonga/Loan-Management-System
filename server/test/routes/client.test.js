@@ -84,6 +84,21 @@ describe("Client functionality test", function () {
             })
     })
 
+    test("Gets client through id", function (done) {
+        request(testUrl)
+            .get(`/client/${client.id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error get /client/:id", err)
+                    return done(err)
+                }
+                expect(res.body.id).toBe(client.id)
+                return done()
+            })
+    })
+
     test("Deletes client", function (done) {
         request(testUrl)
             .delete(`/clients/${client.id}`)
