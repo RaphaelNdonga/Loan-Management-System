@@ -162,8 +162,50 @@ describe("Loans functionality test", function (done) {
                 expect(res.body.length).toBeGreaterThan(0)
                 return done()
             })
-
     })
+
+    test("Update loan", function (done) {
+        const loan = {
+            amort: "15000.00",
+            balance: "60000.00",
+            client_id: 1,
+            date_released: "2024-02-04T02:30:01.000Z",
+            firstname: "Elon",
+            gross_loan: "5000.00",
+            maturity_date: "2024-03-03T21:00:00.000Z",
+            status: "Pending",
+            terms: 1,
+            type: "Personal Loan"
+        }
+        request(testUrl)
+            .patch(`/loans/${mainLoan.id}`)
+            .send(loan)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in patch /loans/:id ", err)
+                    return done(err)
+                }
+                expect(res.body[0].balance).toBe(loan.balance)
+                expect(res.body[0].amort).toBe(loan.amort)
+                return done()
+            })
+    })
+    test("Update loan payment", function (done) {
+        request(testUrl)
+            .patch(`/loan/${mainLoan.id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in patch /loans/:id ", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
+
 
     test("Deletes loan without id in route parameter", function (done) {
         request(testUrl)
