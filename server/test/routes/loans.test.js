@@ -5,6 +5,7 @@ describe("Loans functionality test", function (done) {
     let adminUser
     let token
     let mainLoan
+    let mainLoan2
 
     test("register endpoint 200 (ok)", function (done) {
         const user = {
@@ -87,7 +88,7 @@ describe("Loans functionality test", function (done) {
             type: "Personal Loan"
         }
         request(testUrl)
-            .post(`/loans/${mainLoan.id + 1}`)
+            .post(`/loans/${1}`)
             .send(loan)
             .set("Authorization", token)
             .expect(200)
@@ -97,7 +98,7 @@ describe("Loans functionality test", function (done) {
                     return done(err)
                 }
                 expect(res.body).toBeTruthy()
-                mainLoan = res.body
+                mainLoan2 = res.body
                 return done()
             })
     })
@@ -117,7 +118,7 @@ describe("Loans functionality test", function (done) {
 
     test("Deletes loan with id in route parameter", function (done) {
         request(testUrl)
-            .delete(`/loans/${mainLoan.id + 1}`)
+            .delete(`/loans/${mainLoan2.id}`)
             .set("Authorization", token)
             .expect(200)
             .end(function (err, res) {
