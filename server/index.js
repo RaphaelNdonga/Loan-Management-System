@@ -491,9 +491,13 @@ app.post('/payments/:id', auth, async (req, res) => {
       client_id,
     } = req.body;
 
+    console.log("/payments/:id req.body: ", req.body)
+    console.log("the id: ", id)
+
     const addPayment = await pool.query(
-      `INSERT INTO PAYMENTS (amount, collection_date, collected_by, new_balance, method, client_id, loan_id) VALUES (${amount}, '${collection_date}', '${collected_by}', ${new_balance}, '${method}', ${client_id}, ${id}) RETURNING *`
+      `INSERT INTO payments (amount, collection_date, collected_by, new_balance, method, client_id, loan_id) VALUES (${amount}, '${collection_date}', '${collected_by}', ${new_balance}, '${method}', ${client_id}, ${id}) RETURNING *`
     );
+    console.log("/payments/:id addPayment value: ", addPayment)
 
     res.json(addPayment.rows[0]);
   } catch (error) {

@@ -1,11 +1,12 @@
 import request from "supertest"
 
-describe("Loans functionality test", function (done) {
+describe("Loans functionality test", function () {
     const testUrl = "http://localhost:8000"
     let adminUser
     let token
     let mainLoan
     let mainLoan2
+    let mainPayment
 
     test("register endpoint 200 (ok)", function (done) {
         const user = {
@@ -200,6 +201,46 @@ describe("Loans functionality test", function (done) {
             .end(function (err, res) {
                 if (err) {
                     console.log("Error in patch /loans/:id ", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
+
+    test("Create payment for a single loan", function (done) {
+        const payment = {
+            amount: '200',
+            collection_date: '2024-08-08',
+            collected_by: 'some date',
+            new_balance: 4800,
+            method: '',
+            client_id: '1',
+            loan_id: '1'
+        }
+        request(testUrl)
+            .post(`/payments/${mainLoan.id}`)
+            .send(payment)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in post /payments/:id", err)
+                    return done(err)
+                }
+                mainPayment = res.body
+                expect(mainPayment).toBeTruthy()
+                return done()
+            })
+    })
+
+    test("Delete payment for loan", function (done) {
+        request(testUrl)
+            .delete(`/payment/${mainPayment.id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in delete /payment/:id", err)
                     return done(err)
                 }
                 return done()
