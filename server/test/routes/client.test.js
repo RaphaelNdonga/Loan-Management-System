@@ -114,6 +114,31 @@ describe("Client functionality test", function () {
             })
     })
 
+    test("Updates client data", function (done) {
+        const testUser = {
+            firstname: "Testerx",
+            lastname: "McTesterx",
+            contactNumber: "123456780",
+            address: "Testing environment",
+            email: "testerx@testx.com",
+            username: "tester01x",
+            password: "password",
+        }
+
+        request(testUrl)
+            .patch(`/clients/${client.id}`)
+            .send(testUser)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error PATCH /clients/:id")
+                    return done(err)
+                }
+                expect(res.body[0]["firstname"]).toBe("Testerx")
+                return done()
+            })
+    })
+
     test("Deletes client", function (done) {
         request(testUrl)
             .delete(`/clients/${client.id}`)
