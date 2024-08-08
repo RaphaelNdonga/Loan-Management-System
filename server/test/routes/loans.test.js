@@ -134,6 +134,37 @@ describe("Loans functionality test", function (done) {
             })
     })
 
+    test("Get one loan from client", function (done) {
+        request(testUrl)
+            .get(`/loan/${mainLoan.client_id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in get /loan/:id ", err)
+                    return done(err)
+                }
+                expect(res.body).toBeTruthy()
+                return done()
+            })
+    })
+
+    test("Get loan maturity date", function (done) {
+        request(testUrl)
+            .get(`/dates`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in get /dates", err)
+                    return done(err)
+                }
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+
+    })
+
     test("Deletes loan without id in route parameter", function (done) {
         request(testUrl)
             .delete(`/loans/${mainLoan.id}`)
