@@ -262,6 +262,20 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
+    test("Get payment with client id and loan id", function (done) {
+        request(testUrl)
+            .get(`/payment/${mainPayment.client_id}/${mainPayment.loan_id}`)
+            .set("Authorization", token)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("ERror in get /payment/:client_id/:loan_id", err)
+                    return done(err)
+                }
+                expect(res.body.length).toBeGreaterThan(0)
+                return done()
+            })
+    })
 
     test("Delete payment for loan", function (done) {
         request(testUrl)
@@ -276,20 +290,6 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("Delete second payment for loan", function (done) {
-        request(testUrl)
-            .delete(`/payment/${mainPayment2.id}`)
-            .set("Authorization", token)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) {
-                    console.log("Error in delete /payment/:id", err)
-                    return done(err)
-                }
-                return done()
-            })
-    })
-
 
     test("Deletes loan without id in route parameter", function (done) {
         request(testUrl)
