@@ -33,7 +33,7 @@ export default function PaymentsWidget() {
   useEffect(() => {
     getPayments();
     setTotal(amounts.reduce((acc, val) => acc + val, 0));
-  }, [amounts]);
+  }, []);
 
   return (
     <div className='w-full'>

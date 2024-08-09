@@ -11,4 +11,18 @@ click `Get Started` button.
 Authenticated Session is being maintained using `useState` which is unreliable.
 
 steps to reproduce:
-After logging in, clicking back resets the session to `unAuthenticated`.
+After logging in, clicking back resets the session to `unAuthenticated`. Or just refresh the page
+
+### Issue 3
+No feedback after user registers
+
+steps to reproduce:
+register new user
+
+### Issue 5
+useEffect being called infinitely. This causes severe performance issues in the app.
+
+steps to reproduce:
+Log in to home screen and check the network tab. `/allLoans` and `/allPayments` api endpoints are being called infinitely
+
+> I fixed this issue by removing the useEffect dependency that was cyclic. I did this because the app was breaking down and I could not proceed with testing procedures.
