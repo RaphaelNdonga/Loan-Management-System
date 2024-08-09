@@ -70,6 +70,10 @@ const LoanInfo = () => {
     GetLoans();
   }, []);
 
+  useEffect(() => {
+    console.log("Loans: ", loans)
+  }, [loans])
+
   return (
     <div className=''>
       <ToastContainer />
@@ -135,7 +139,7 @@ const LoanInfo = () => {
                       </td>
                       <td className='border px-4 py-2 '>
                         {loan.status === 'Approved' ||
-                        loan.status === 'Fully Paid' ? (
+                          loan.status === 'Fully Paid' ? (
                           <span className=' bg-green-500 text-white px-4 py-1 rounded-md'>
                             {loan.status}
                           </span>

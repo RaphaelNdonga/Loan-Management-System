@@ -172,8 +172,8 @@ const Loans = ({ setAuth }) => {
                             {loan.status}
                           </span> */}
                           {loan.status === 'Approved' ||
-                          loan.status === 'Fully Paid' ||
-                          loan.status === 'Disbursed' ? (
+                            loan.status === 'Fully Paid' ||
+                            loan.status === 'Disbursed' ? (
                             <span className=' bg-green-500 text-white px-4 py-1 rounded-md'>
                               {loan.status}
                             </span>
