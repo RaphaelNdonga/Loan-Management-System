@@ -31,7 +31,7 @@ export default function Sidebar() {
 
           <li className='text-sm font-medium text-gray-700 py-2 px-2 hover:bg-red-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out'>
             <PermIdentity />
-            <Link to='/borrowers' className='ml-2.5'>
+            <Link data-cy="borrowersLink" to='/borrowers' className='ml-2.5'>
               Borrowers
             </Link>
           </li>
