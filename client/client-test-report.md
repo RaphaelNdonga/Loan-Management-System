@@ -54,3 +54,14 @@ Loans widget is calculating Total loans transacted incorrectly
 
 steps to reproduce:
 Visit /home
+
+### Issue 11
+Adding a loan causes the following error: 
+
+```
+syntax error at or near ","
+```
+
+steps to reproduce:
+/addLoan/:id
+Fill in the details but don't change the terms or they type of loan.

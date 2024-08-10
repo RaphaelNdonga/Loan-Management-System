@@ -78,7 +78,7 @@ const AddLoan = ({ setAuth }) => {
 
       const parseRes = await response.json();
 
-      addSuccessful();
+      // addSuccessful();
 
       setTimeout(() => {
         navigate(-1);

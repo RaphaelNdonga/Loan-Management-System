@@ -151,11 +151,12 @@ const Borrowers = ({ setAuth }) => {
                         <button
                           className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-2 rounded focus:outline-none focus:shadow-outline w-full text-sm'
                           onClick={() => deleteClient(client.id)}
+                          data-cy={`deleteBtn-${client.id}`}
                         >
                           <DeleteForever className='text-lg' />
                         </button>
                         <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
-                          <Link to={`/Borrower/${client.id}`}>
+                          <Link to={`/Borrower/${client.id}`} data-cy={`borrowerLink-${client.id}`}>
                             <VisibilityOutlined className='text-sm' />
                           </Link>
                         </button>
