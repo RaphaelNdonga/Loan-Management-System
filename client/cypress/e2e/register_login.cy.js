@@ -93,7 +93,7 @@ describe('Register and Login functionality', () => {
 
   //TODO: Test for payment functionality
 
-  it("Edits borrower and adds loan", () => {
+  it("Edits borrower adds new loan and deletes loan", () => {
     let loan;
     cy.visit('http://localhost:3000/login')
     cy.get('input[name="username"]').type(testerUsername)
@@ -104,6 +104,9 @@ describe('Register and Login functionality', () => {
     cy.url().should("include", "/borrowers")
     cy.get('[data-cy="borrowerLink-1"]').click()
     cy.url().should("include", "/Borrower/1")
+
+    // ********** Adding loan **********
+
     cy.contains("Add Loan").click()
     cy.url().should("include", "/addLoan")
     cy.get('select[name="type"]').select(1)
@@ -120,8 +123,12 @@ describe('Register and Login functionality', () => {
       loan = interception.response.body
       expect(loan).to.exist
       cy.url().should("include", "/Borrower/1")
-      cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
-      cy.url().should("include", "/editLoan")
+
+      // ********** DELETING loan **********
+
+      cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
+      cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
+      cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
     })
 
   })

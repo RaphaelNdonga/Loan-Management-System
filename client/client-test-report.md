@@ -65,3 +65,9 @@ syntax error at or near ","
 steps to reproduce:
 /addLoan/:id
 Fill in the details but don't change the terms or they type of loan.
+
+### Issue 12
+It is possible to create a new loan with specific time, but when updating, you cannot set a specific time.
+
+steps to reproduce:
+/editLoan -> Date released
