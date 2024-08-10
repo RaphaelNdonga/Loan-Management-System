@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import emailjs from 'emailjs-com';
+import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function Message({ email }) {
@@ -42,17 +42,19 @@ export default function Message({ email }) {
 
     emailjs
       .sendForm(
-        'service_2kyejr4',
-        'Loan_Approval',
+        'service_jrkwr6f',
+        'contact_form',
         e.target,
-        'mDqAo3YVF6cq60oy7'
+        {
+          publicKey: 'gH48tS_C6Jg619kFg'
+        }
       )
       .then(
         (result) => {
-          console.log(result.text);
+          console.log("emailjs successful: ", result.text);
         },
         (error) => {
-          console.log(error.text);
+          console.log("emailjs error: ", error.text);
         }
       );
     addSuccessful();
@@ -61,8 +63,12 @@ export default function Message({ email }) {
   };
 
   useEffect(() => {
+    emailjs.init({
+      publicKey: 'gH48tS_C6Jg619kFg'
+    })
+
     getClient();
-  });
+  }, []);
 
   return (
     <div className='flex'>
