@@ -154,7 +154,7 @@ const EditLoan = ({ setAuth }) => {
 
       const parseRes = await response.json();
 
-      editSuccessful();
+      // editSuccessful();
 
       setTimeout(() => {
         navigate(-1);
@@ -347,6 +347,7 @@ const EditLoan = ({ setAuth }) => {
               <button
                 type='submit'
                 className=' text-center py-3 rounded bg-red-500 text-white hover:bg-red-700 focus:outline-none my-1 w-1/5'
+                data-cy="updateBtn"
               >
                 Update
               </button>

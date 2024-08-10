@@ -80,11 +80,11 @@ export default function ApprovalWidget() {
                             </span>
                           </td>
                           <td className='border px-4 py-2  bg-gray-50'>
-                            <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
-                              <Link to={`/editLoan/${loan.id}`}>
+                            <Link to={`/editLoan/${loan.id}`}>
+                              <button data-cy="viewBtn" className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
                                 <VisibilityOutlined className='text-sm' />
-                              </Link>
-                            </button>
+                              </button>
+                            </Link>
                           </td>
                         </tr>
                       );

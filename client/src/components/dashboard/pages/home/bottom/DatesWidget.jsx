@@ -91,7 +91,7 @@ export default function DatesWidget() {
                           ₱ {date.balance}
                         </td>
                         <td className='border px-4 py-2'>
-                          <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
+                          <button data-cy={`emailBtn-${index}`} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
                             <Link to={`/emailClient`}>
                               <MailOutline className='text-sm' />
                             </Link>

@@ -53,7 +53,7 @@ const Login = ({ setAuth }) => {
 
       if (parseRes.token) {
         localStorage.setItem('token', parseRes.token);
-        loginSuccessful();
+        // loginSuccessful();
         setTimeout(() => {
           setAuth(true);
         }, 3000);
@@ -67,7 +67,7 @@ const Login = ({ setAuth }) => {
 
   return (
     <div className='flex flex-col h-auto w-[620px] border rounded-md shadow-md  mx-auto my-52 justify-center flex-wrap border-t-4 border-t-red-500 '>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className=''>
         <div className='flex justify-between items-center px-8 pt-6 pb-2'>
           {/* GREETINGS */}
