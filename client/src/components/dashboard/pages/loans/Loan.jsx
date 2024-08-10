@@ -172,7 +172,7 @@ const LoanInfo = () => {
                           </Link>
                         </button>
                         <button className='bg-red-500 hover:bg-red-700 text-white font-bold h-10 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
-                          <Link to={`/payment/${loan.client_id}/${loan.id}`}>
+                          <Link to={`/payment/${loan.client_id}/${loan.id}`} data-cy={`paymentLink-${loan.id}`}>
                             ₱
                           </Link>
                         </button>

@@ -107,11 +107,7 @@ describe('Register and Login functionality', () => {
 
   it("Edits borrower adds new loan, edits and deletes loan", () => {
     let loan;
-    cy.visit('http://localhost:3000/login')
-    cy.get('input[name="username"]').type(testerUsername)
-    cy.get('input[name="password"]').type(testerPassword)
-    cy.contains("Sign In").click()
-    cy.url().should("include", "/home")
+    cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
     cy.get('[data-cy="borrowerLink-1"]').click()
@@ -148,6 +144,10 @@ describe('Register and Login functionality', () => {
       cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
       cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
     })
+
+    // it("Adds payment and deletes payment", () => {
+    //   cy.get(`[data-cy="paymentLink-${loan.id}"]`).click()
+    // })
 
   })
 })

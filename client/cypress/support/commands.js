@@ -61,3 +61,11 @@ Cypress.Commands.add('registerTester', () => {
         })
     });
 });
+
+Cypress.Commands.add('login', (username, password) => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('input[name="username"]').type(username)
+    cy.get('input[name="password"]').type(password)
+    cy.contains("Sign In").click()
+    cy.url().should("include", "/home")
+})
