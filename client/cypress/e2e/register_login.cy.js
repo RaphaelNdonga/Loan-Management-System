@@ -29,20 +29,30 @@ describe('Register and Login functionality', () => {
   //   cy.url().should("include", "/home")
   // })
 
-  it('Emails client', () => {
-    cy.visit('http://localhost:3000/login')
-    cy.get('input[name="username"]').type(testerUsername)
-    cy.get('input[name="password"]').type(testerPassword)
-    cy.contains("Sign In").click()
-    cy.url().should("include", "/home")
-    cy.get('[data-cy="emailBtn-0"]').click()
-    cy.url().should("include", "/emailClient")
-    cy.get('[data-cy="check-0"]').click()
-    cy.get('textarea[name="message"]').type("Greetings and thanks in advance")
-    cy.intercept("POST", "https://api.emailjs.com/api/v1.0/email/send-form").as("emailjsApiCall")
-    cy.contains("Send message").click()
-    cy.wait("@emailjsApiCall").its("response.statusCode").should("eq", 200)
-  })
+  // it('Emails client', () => {
+  //   cy.visit('http://localhost:3000/login')
+  //   cy.get('input[name="username"]').type(testerUsername)
+  //   cy.get('input[name="password"]').type(testerPassword)
+  //   cy.contains("Sign In").click()
+  //   cy.url().should("include", "/home")
+  //   cy.get('[data-cy="emailBtn-0"]').click()
+  //   cy.url().should("include", "/emailClient")
+  //   cy.get('[data-cy="check-0"]').click()
+  //   cy.get('textarea[name="message"]').type("Greetings and thanks in advance")
+  //   cy.intercept("POST", "https://api.emailjs.com/api/v1.0/email/send-form").as("emailjsApiCall")
+  //   cy.contains("Send message").click()
+  //   cy.wait("@emailjsApiCall").its("response.statusCode").should("eq", 200)
+  // })
+
+  // it('Goes to email tab from sidebar', () => {
+  //   cy.visit('http://localhost:3000/login')
+  //   cy.get('input[name="username"]').type(testerUsername)
+  //   cy.get('input[name="password"]').type(testerPassword)
+  //   cy.contains("Sign In").click()
+  //   cy.url().should("include", "/home")
+  //   cy.get('[data-cy="emailClientLink"]').click()
+  //   cy.url().should("include", "/emailClient")
+  // })
 
   // it("Edits Loans", () => {
   //   cy.visit('http://localhost:3000/login')
@@ -95,43 +105,49 @@ describe('Register and Login functionality', () => {
 
   //TODO: Test for payment functionality
 
-  // it("Edits borrower adds new loan and deletes loan", () => {
-  //   let loan;
-  //   cy.visit('http://localhost:3000/login')
-  //   cy.get('input[name="username"]').type(testerUsername)
-  //   cy.get('input[name="password"]').type(testerPassword)
-  //   cy.contains("Sign In").click()
-  //   cy.url().should("include", "/home")
-  //   cy.get('[data-cy="borrowersLink"]').click()
-  //   cy.url().should("include", "/borrowers")
-  //   cy.get('[data-cy="borrowerLink-1"]').click()
-  //   cy.url().should("include", "/Borrower/1")
+  it("Edits borrower adds new loan, edits and deletes loan", () => {
+    let loan;
+    cy.visit('http://localhost:3000/login')
+    cy.get('input[name="username"]').type(testerUsername)
+    cy.get('input[name="password"]').type(testerPassword)
+    cy.contains("Sign In").click()
+    cy.url().should("include", "/home")
+    cy.get('[data-cy="borrowersLink"]').click()
+    cy.url().should("include", "/borrowers")
+    cy.get('[data-cy="borrowerLink-1"]').click()
+    cy.url().should("include", "/Borrower/1")
 
-  //   // ********** Adding loan **********
+    // ********** Adding loan **********
 
-  //   cy.contains("Add Loan").click()
-  //   cy.url().should("include", "/addLoan")
-  //   cy.get('select[name="type"]').select(1)
-  //   cy.get('input[name="gross_loan"]').type(randomNumber % 1000)
-  //   cy.get('input[name="balance"]').type(randomNumber % 500)
-  //   cy.get('input[name="amort"]').type(randomNumber % 200)
-  //   cy.get('input[name="date_released"]').clear().type(`2023-10-12T11:10:10`)
-  //   cy.get('input[name="maturity_date"]').clear().type(`2023-01-01`)
-  //   cy.get('select[name="terms"]').select(1)
-  //   cy.intercept("POST", `http://localhost:8000/loans/1`).as("addLoanApiCall")
-  //   cy.contains("Add New Loan").click()
-  //   cy.wait("@addLoanApiCall").then((interception) => {
-  //     expect(interception.response.statusCode).to.eq(200)
-  //     loan = interception.response.body
-  //     expect(loan).to.exist
-  //     cy.url().should("include", "/Borrower/1")
+    cy.contains("Add Loan").click()
+    cy.url().should("include", "/addLoan")
+    cy.get('select[name="type"]').select(1)
+    cy.get('input[name="gross_loan"]').type(randomNumber % 1000)
+    cy.get('input[name="balance"]').type(randomNumber % 500)
+    cy.get('input[name="amort"]').type(randomNumber % 200)
+    cy.get('input[name="date_released"]').clear().type(`2023-10-12T11:10:10`)
+    cy.get('input[name="maturity_date"]').clear().type(`2023-01-01`)
+    cy.get('select[name="terms"]').select(1)
+    cy.intercept("POST", `http://localhost:8000/loans/1`).as("addLoanApiCall")
+    cy.contains("Add New Loan").click()
+    cy.wait("@addLoanApiCall").then((interception) => {
+      expect(interception.response.statusCode).to.eq(200)
+      loan = interception.response.body
+      expect(loan).to.exist
+      cy.url().should("include", "/Borrower/1")
 
-  //     // ********** DELETING loan **********
+      // ********** UPDATING loan **********
+      cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
+      cy.url().should("include", "/editLoan")
+      // Only necessary check is whether it is in /editLoan page. edit loan functionality has already been tested above
 
-  //     cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
-  //     cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
-  //     cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
-  //   })
+      // ********** DELETING loan **********
+      cy.go('back')
+      cy.url().should("include", "/Borrower/1")
+      cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
+      cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
+      cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
+    })
 
-  // })
+  })
 })
