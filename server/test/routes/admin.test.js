@@ -11,7 +11,7 @@ describe("Admin functionality test", function () {
             contactNumber: "123456789",
             address: "Testing environment",
             email: "tester@test.com",
-            username: "tester01",
+            username: "tester02",
             password: "password",
         }
         request(testUrl)
@@ -34,7 +34,7 @@ describe("Admin functionality test", function () {
             contactNumber: "123456789",
             address: "Testing environment",
             email: "tester@test.com",
-            username: "tester01",
+            username: "tester02",
             password: "password",
         }
         request(testUrl)
@@ -48,6 +48,25 @@ describe("Admin functionality test", function () {
                 }
                 return done()
             })
+    })
+    test("register is NOT vulnerable to SQL injection", function (done) {
+        const SQL = "' OR '1'='1'--"
+        const user = {
+            username: SQL,
+            password: "password"
+        }
+        request(testUrl)
+            .post("/login")
+            .send(user)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /login", err)
+                    return done(err)
+                }
+                return done()
+            })
+
     })
     test("can login", function (done) {
         const user = {
@@ -65,6 +84,26 @@ describe("Admin functionality test", function () {
                 }
                 return done()
             })
+    })
+
+    test("login is NOT vulnerable to SQL injection", function (done) {
+        const SQL = "' OR '1'='1'--"
+        const user = {
+            username: SQL,
+            password: "password"
+        }
+        request(testUrl)
+            .post("/login")
+            .send(user)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /login", err)
+                    return done(err)
+                }
+                return done()
+            })
+
     })
     test("gets profile", function (done) {
         request(testUrl)
@@ -113,7 +152,7 @@ describe("Admin functionality test", function () {
             contactNumber: "123456789",
             address: "Testing environment",
             email: "tester@test.com",
-            username: "tester01",
+            username: "tester02",
             password: "password",
         }
         request(testUrl)
@@ -128,6 +167,30 @@ describe("Admin functionality test", function () {
                 token = res.body["token"]
                 return done()
             })
+    })
+    test("/addAdmin is NOT vulnerable to SQL injection", function (done) {
+        const SQL = "' OR '1'='1'--"
+        const test_user = {
+            firstname: "Tester",
+            lastname: "McTester",
+            contactNumber: "123456789",
+            address: "Testing environment",
+            email: "tester@test.com",
+            username: SQL,
+            password: "password",
+        }
+        request(testUrl)
+            .post("/addAdmin")
+            .send(test_user)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /login", err)
+                    return done(err)
+                }
+                return done()
+            })
+
     })
     test("deletes added admin", function (done) {
         request(testUrl)

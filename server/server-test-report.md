@@ -113,3 +113,9 @@ See server/index.js Line 81
 ### Issue 8 - Conflicting endpoints: POST /loans/ occurs twice
 see server/index.js Line 331 & Line 508
 
+### Issue 9 - SQL Injection Vulnerability
+The database is vulnerable to a sequal injection at the following endpoints:
+1. POST /login
+2. POST /register
+3. POST /addClient
+
