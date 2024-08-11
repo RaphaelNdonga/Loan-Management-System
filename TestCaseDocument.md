@@ -369,7 +369,7 @@ Adds payment from /payments page
 
 - __Description__
 
- Deletes payment from /payments page
+ Deletes payment from /payments page.
 
 - __Expected Results__
 
@@ -381,11 +381,11 @@ Adds payment from /payments page
    
 - __Pass/Fail Criteria__
 
-    PASS - Response status code 200
+    PASS - Response status code 200 on endpoint /payment/${payment.id}
    
 - __Priority__
 
-    Medium
+    HIGH
    
 - __Type of Test__
 
@@ -403,7 +403,7 @@ Updates and deletes loan added from /loans page
    
 - __Actual Results__
 
-   Tests pass
+   Tests fail
    
 - __Pass/Fail Criteria__
 
@@ -429,7 +429,7 @@ Deletes client from /borrowers page
    
 - __Actual Results__
 
-   Tests pass
+   Tests fail
    
 - __Pass/Fail Criteria__
 

@@ -94,7 +94,8 @@ steps to reproduce:
 select the fill in and click `Add Payment` twice
 
 ### Issue 16
-Deleting payment from /payments page does not work correctly. On the backend, it calls DELETE /loans with loan id instead of DELETE /payment with payment id
+Deleting payment from /payments page does not work correctly. On the backend, it calls DELETE /loans with loan id instead of DELETE /payment with payment id.
+Connected to: `FTC-013`
 
 steps to reproduce:
 visit /payments, 

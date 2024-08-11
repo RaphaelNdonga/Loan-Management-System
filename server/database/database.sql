@@ -74,13 +74,19 @@ UPDATE clients SET firstname = 'Ian Czar', lastname = 'Dino', contactNumber = 11
 
 -- LOANS
 INSERT INTO loans(client_id, balance, gross_loan, amort, terms, date_released, maturity_date, type, status) 
+VALUES (1, 5000, 5000, 2500, 1, '2023-02-04 05:30:01', '2023-03-04', 'Personal Loan', 'Pending');
+
+INSERT INTO loans(client_id, balance, gross_loan, amort, terms, date_released, maturity_date, type, status) 
 VALUES (2, 5000, 5000, 2500, 1, '2023-02-04 05:30:01', '2023-03-04', 'Personal Loan', 'Pending');
 
 UPDATE loans SET type = 'Salary Loan', balance = 0, gross_loan = 5000, amort = 2500, terms = 2500, date_released = '2023-02-04', maturity_date = '2023-03-04', status = 'Disbursed' WHERE id = 4 RETURNING *;
 
 -- PAYMENTS
 INSERT INTO payments(client_id, loan_id, amount, new_balance, collection_date, collected_by, method) 
-VALUES (2, 1, 5000, 0, '2023-03-04', 'admin', 'ATM');
+VALUES (1, 1, 5000, 0, '2023-03-04', 'admin', 'ATM');
+
+INSERT INTO payments(client_id, loan_id, amount, new_balance, collection_date, collected_by, method) 
+VALUES (2, 2, 5000, 0, '2023-03-04', 'admin', 'ATM');
 
 -- DELETE should fail because of payment_client constraint
 
@@ -98,6 +104,6 @@ SELECT * FROM clients AS c LEFT JOIN loans AS t ON c.id = t.client_id WHERE c.id
 
 -- DELETE should now work 
 DELETE FROM payments WHERE client_id=2;
-DELETE FROM loans WHERE id=1;
+DELETE FROM loans WHERE id=2;
 DELETE FROM clients WHERE id=2;
 
