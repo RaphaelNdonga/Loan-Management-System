@@ -76,6 +76,34 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
+    test("NOT vulnerable to SQL injection when adding loan", function (done) {
+        const SQL = "2024-02-04T02:30:01.000Z');--"
+        const loan = {
+            amort: "1500.00",
+            balance: "6000.00",
+            client_id: 1,
+            date_released: "2024-02-04T02:30:01.000Z",
+            firstname: "Elon",
+            gross_loan: "5000.00",
+            maturity_date: SQL,
+            status: "Pending",
+            terms: 1,
+            type: "Personal Loan"
+        }
+        request(testUrl)
+            .post("/loans")
+            .send(loan)
+            .set("Authorization", token)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /loans: ", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
+
     test("Adds loan with id in route parameter", function (done) {
         const loan = {
             amort: "3500.00",

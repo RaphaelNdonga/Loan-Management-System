@@ -118,4 +118,5 @@ The database is vulnerable to a sequal injection at the following endpoints:
 1. POST /login
 2. POST /register
 3. POST /addClient
+4. PATCH /client/:id
 
