@@ -42,7 +42,7 @@ describe("Client functionality test", function () {
                 return done()
             })
     })
-    test("Adds client", function (done) {
+    test("BTC-010 Adds client", function (done) {
         const testUser = {
             firstname: "Tester",
             lastname: "McTester",
@@ -68,7 +68,7 @@ describe("Client functionality test", function () {
             })
     })
 
-    test("/addClient is NOT vulnerable to SQL injection", function (done) {
+    test("BTC-004 /addClient is NOT vulnerable to SQL injection", function (done) {
         const SQL = "' OR '1'='1'--"
         const test_user = {
             firstname: "Tester",
@@ -93,7 +93,7 @@ describe("Client functionality test", function () {
 
     })
 
-    test("Gets all clients", function (done) {
+    test("BTC-011 Gets all clients", function (done) {
         console.log("Token: ", token)
         request(testUrl)
             .get("/allClients")
@@ -109,7 +109,7 @@ describe("Client functionality test", function () {
             })
     })
 
-    test("Gets client through id", function (done) {
+    test("BTC-012 Gets client through id", function (done) {
         request(testUrl)
             .get(`/client/${client.id}`)
             .set("Authorization", token)
@@ -124,7 +124,7 @@ describe("Client functionality test", function () {
             })
     })
 
-    test("Gets client through email", function (done) {
+    test("BTC-013 Gets client through email", function (done) {
         request(testUrl)
             .get(`/email/${client.email}`)
             .set("Authorization", token)
@@ -140,7 +140,7 @@ describe("Client functionality test", function () {
     })
 
 
-    test("Updates client data", function (done) {
+    test("BTC-014 Updates client data", function (done) {
         const testUser = {
             firstname: "Testerx",
             lastname: "McTesterx",
@@ -165,7 +165,7 @@ describe("Client functionality test", function () {
             })
     })
 
-    test("Updates client is NOT vulnerable to SQL", function (done) {
+    test("BTC-004 Updates client is NOT vulnerable to SQL injection", function (done) {
         const SQL = "inject';--"
         const testUser = {
             firstname: SQL,
@@ -190,7 +190,7 @@ describe("Client functionality test", function () {
             })
     })
 
-    test("Deletes client", function (done) {
+    test("BTC-015 Deletes client", function (done) {
         request(testUrl)
             .delete(`/clients/${client.id}`)
             .expect(200)

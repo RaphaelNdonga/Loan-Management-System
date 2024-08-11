@@ -4,7 +4,7 @@ describe("Admin functionality test", function () {
     const testUrl = "http://localhost:8000"
     let token;
     let user;
-    test("register endpoint 200 (ok)", function (done) {
+    test("BTC-003 register endpoint 200 (ok)", function (done) {
         const user = {
             firstname: "Tester",
             lastname: "McTester",
@@ -27,7 +27,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("register duplicate is 401(Unauthorised)", function (done) {
+    test("BTC-003 register duplicate is 401(Unauthorised)", function (done) {
         const user = {
             firstname: "Tester",
             lastname: "McTester",
@@ -49,7 +49,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("register is NOT vulnerable to SQL injection", function (done) {
+    test("BTC-004 register is NOT vulnerable to SQL injection", function (done) {
         const SQL = "' OR '1'='1'--"
         const user = {
             username: SQL,
@@ -68,7 +68,7 @@ describe("Admin functionality test", function () {
             })
 
     })
-    test("can login", function (done) {
+    test("BTC-005 login", function (done) {
         const user = {
             username: "tester01",
             password: "password"
@@ -86,7 +86,7 @@ describe("Admin functionality test", function () {
             })
     })
 
-    test("login is NOT vulnerable to SQL injection", function (done) {
+    test("BTC-004 login is NOT vulnerable to SQL injection", function (done) {
         const SQL = "' OR '1'='1'--"
         const user = {
             username: SQL,
@@ -105,7 +105,7 @@ describe("Admin functionality test", function () {
             })
 
     })
-    test("gets profile", function (done) {
+    test("BTC-006 gets profile", function (done) {
         request(testUrl)
             .get("/profile")
             .set("Authorization", token)
@@ -119,7 +119,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("gets all admins", function (done) {
+    test("BTC-007 gets all admins", function (done) {
         request(testUrl)
             .get("/allAdmins")
             .set("Authorization", token)
@@ -132,7 +132,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("deletes admin", function (done) {
+    test("BTC-008 deletes admin", function (done) {
         request(testUrl)
             .delete(`/admin/${user.id}`)
             .expect(200)
@@ -145,7 +145,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("adds admin", function (done) {
+    test("BTC-009 adds admin", function (done) {
         const test_user = {
             firstname: "Tester",
             lastname: "McTester",
@@ -168,7 +168,7 @@ describe("Admin functionality test", function () {
                 return done()
             })
     })
-    test("/addAdmin is NOT vulnerable to SQL injection", function (done) {
+    test("BTC-004 /addAdmin is NOT vulnerable to SQL injection", function (done) {
         const SQL = "' OR '1'='1'--"
         const test_user = {
             firstname: "Tester",

@@ -1,7 +1,7 @@
 import { connectDatabase } from "../../pool"
 
 describe("Postgresql database test", function () {
-    it("should connect to database", async function () {
+    it("BTC-001 Connects to database", async function () {
         const db = connectDatabase()
         const client = await db.connect();
         try {

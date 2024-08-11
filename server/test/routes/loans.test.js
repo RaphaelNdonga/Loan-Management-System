@@ -76,7 +76,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("NOT vulnerable to SQL injection when adding loan without id", function (done) {
+    test("BTC-004 NOT vulnerable to SQL injection when adding loan without id", function (done) {
         const SQL = "2024-02-04T02:30:01.000Z');--"
         const loan = {
             amort: "1500.00",
@@ -132,7 +132,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("NOT vulnerable to SQL injection when adding loan with id", function (done) {
+    test("BTC-004 NOT vulnerable to SQL injection when adding loan with id", function (done) {
         const SQL = "2024-02-04T02:30:01.000Z');--"
         const loan = {
             amort: "3500.00",
@@ -248,7 +248,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("NOT vulnerable to SQL injection when updating loan", function (done) {
+    test("BTC-004 NOT vulnerable to SQL injection when updating loan", function (done) {
         const SQL = "inject';--"
         const loan = {
             amort: "15000.00",
@@ -314,7 +314,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("NOT vulnerable to SQl injection when creating payment for a single loan", function (done) {
+    test("BTC-004 NOT vulnerable to SQl injection when creating payment for a single loan", function (done) {
         const SQL = "1,1);--"
         const payment = {
             amount: '200',

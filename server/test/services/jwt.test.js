@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { describe, expect, test } from '@jest/globals'
 import { generateJWT } from "../../utils/jwtGenerator"
 
-describe("JWT Token test", function () {
+describe("BTC-002 JWT Token test", function () {
     test("generates token", function () {
         const user = { name: "tester", password: "password" }
         const token = generateJWT(user)
