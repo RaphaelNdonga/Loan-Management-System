@@ -68,6 +68,31 @@ describe("Client functionality test", function () {
             })
     })
 
+    test("/addClient is NOT vulnerable to SQL injection", function (done) {
+        const SQL = "' OR '1'='1'--"
+        const test_user = {
+            firstname: "Tester",
+            lastname: "McTester",
+            contactNumber: "123456789",
+            address: "Testing environment",
+            email: "tester@test.com",
+            username: SQL,
+            password: "password",
+        }
+        request(testUrl)
+            .post("/addClient")
+            .send(test_user)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /login", err)
+                    return done(err)
+                }
+                return done()
+            })
+
+    })
+
     test("Gets all clients", function (done) {
         console.log("Token: ", token)
         request(testUrl)
@@ -114,6 +139,7 @@ describe("Client functionality test", function () {
             })
     })
 
+
     test("Updates client data", function (done) {
         const testUser = {
             firstname: "Testerx",
@@ -135,6 +161,31 @@ describe("Client functionality test", function () {
                     return done(err)
                 }
                 expect(res.body[0]["firstname"]).toBe("Testerx")
+                return done()
+            })
+    })
+
+    test("Updates client is NOT vulnerable to SQL", function (done) {
+        const SQL = "inject';--"
+        const testUser = {
+            firstname: SQL,
+            lastname: "McTesterx",
+            contactNumber: "123456780",
+            address: "Testing environment",
+            email: "testerx@testx.com",
+            username: "tester01x",
+            password: "password",
+        }
+
+        request(testUrl)
+            .patch(`/clients/${client.id}`)
+            .send(testUser)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error PATCH /clients/:id")
+                    return done(err)
+                }
                 return done()
             })
     })
