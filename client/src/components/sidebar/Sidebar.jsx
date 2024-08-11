@@ -38,7 +38,7 @@ export default function Sidebar() {
 
           <li className='text-sm font-medium text-gray-700 py-2 px-2 hover:bg-red-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out'>
             <CreditScore />
-            <Link to='/loans' className='ml-2.5'>
+            <Link data-cy="loansLink" to='/loans' className='ml-2.5'>
               Loans
             </Link>
           </li>
