@@ -48,7 +48,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Adds loan without id in route parameter", function (done) {
+    test("BTC-016 Adds loan without id in route parameter", function (done) {
         const loan = {
             amort: "1500.00",
             balance: "6000.00",
@@ -104,7 +104,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Adds loan with id in route parameter", function (done) {
+    test("BTC-016 Adds loan with id in route parameter", function (done) {
         const loan = {
             amort: "3500.00",
             balance: "7000.00",
@@ -159,7 +159,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("Gets all loans", function (done) {
+    test("BTC-017 Gets all loans", function (done) {
         request(testUrl)
             .get("/allLoans")
             .set("Authorization", token)
@@ -175,7 +175,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Get loans of one client", function (done) {
+    test("BTC-018 Get loans of one client", function (done) {
         request(testUrl)
             .get(`/loans/${mainLoan.client_id}`)
             .set("Authorization", token)
@@ -190,7 +190,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Get one loan from client", function (done) {
+    test("BTC-019 Get one loan from client", function (done) {
         request(testUrl)
             .get(`/loan/${mainLoan.client_id}`)
             .set("Authorization", token)
@@ -205,7 +205,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Get loan maturity date", function (done) {
+    test("BTC-020 Get loan maturity date", function (done) {
         request(testUrl)
             .get(`/dates`)
             .set("Authorization", token)
@@ -220,7 +220,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Update loan", function (done) {
+    test("BTC-021 Update loan", function (done) {
         const loan = {
             amort: "15000.00",
             balance: "60000.00",
@@ -275,7 +275,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("Update loan payment", function (done) {
+    test("BTC-022 Update loan payment", function (done) {
         request(testUrl)
             .patch(`/loan/${mainLoan.id}`)
             .set("Authorization", token)
@@ -289,7 +289,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Create payment for a single loan", function (done) {
+    test("BTC-023 Create payment for a single loan", function (done) {
         const payment = {
             amount: '200',
             collection_date: '2024-08-08',
@@ -338,7 +338,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Gets client payments to a single loan", function (done) {
+    test("BTC-024 Gets client payments to a single loan", function (done) {
         request(testUrl)
             .get(`/payments/${mainPayment.client_id}`)
             .set("Authorization", token)
@@ -353,7 +353,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Get all payments", function (done) {
+    test("BTC-025 Get all payments", function (done) {
         request(testUrl)
             .get("/allPayments")
             .set("Authorization", token)
@@ -367,7 +367,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("Get payment with client id and loan id", function (done) {
+    test("BTC-026 Get payment with client id and loan id", function (done) {
         request(testUrl)
             .get(`/payment/${mainPayment.client_id}/${mainPayment.loan_id}`)
             .set("Authorization", token)
@@ -382,7 +382,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Delete payment for loan", function (done) {
+    test("BTC-027 Delete payment for loan", function (done) {
         request(testUrl)
             .delete(`/payment/${mainPayment.id}`)
             .set("Authorization", token)
@@ -396,7 +396,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Deletes loan without id in route parameter", function (done) {
+    test("BTC-028 Deletes loan without id in route parameter", function (done) {
         request(testUrl)
             .delete(`/loans/${mainLoan.id}`)
             .set("Authorization", token)
@@ -410,7 +410,7 @@ describe("Loans functionality test", function () {
             })
     })
 
-    test("Deletes loan with id in route parameter", function (done) {
+    test("BTC-028 Deletes loan with id in route parameter", function (done) {
         request(testUrl)
             .delete(`/loans/${mainLoan2.id}`)
             .set("Authorization", token)

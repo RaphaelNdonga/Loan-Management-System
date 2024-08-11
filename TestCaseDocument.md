@@ -861,3 +861,341 @@ Test Steps
 - __Type of Test__
 
     Functional test
+
+#### 3.2.13 Test Case ID: BTC-016 adds loan
+
+- __Description__
+
+    Adds loan in 2 ways: with id and without id in route parameter
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.14 Test Case ID: BTC-017 gets all loans
+
+- __Description__
+
+    Gets all loans on endpoint GET /allLoans
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.15 Test Case ID: BTC-018 gets loans of one client
+
+- __Description__
+
+    Gets loan of one client on endpoint GET /loans/:client_id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.17 Test Case ID: BTC-019 gets one loan from client
+
+- __Description__
+
+    Gets one loan from client on endpoint GET /loans/:client_id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.18 Test Case ID: BTC-020 gets maturity dates from loans
+
+- __Description__
+
+    Gets maturity dates from loans
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Low
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.19 Test Case ID: BTC-021 Updates loan
+
+- __Description__
+
+    Updates loan on endpoint PATCH /loans/:id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.20 Test Case ID: BTC-022 Updates loan payment
+
+- __Description__
+
+    Updates loan payment on endpoint /loan/:id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.21 Test Case ID: BTC-023 Creates a new payment for a loan
+
+- __Description__
+
+    Creates a new payment for a loan at endpoint POST /payments/:id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.22 Test Case ID: BTC-024 Get client payments to a single loan
+
+- __Description__
+
+    Adds admin
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.23 Test Case ID: BTC-025 Gets all payments
+
+- __Description__
+
+    Gets all payments through endpoint GET /allPayments
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.24 Test Case ID: BTC-026 Get payment with client id and loan id
+
+- __Description__
+
+    Gets payment using client id and loan id on endpoint GET /payment/:client_id/:loan_id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.25 Test Case ID: BTC-027 Delete payment for loan
+
+- __Description__
+
+    Delete payment for loan on endpoint DELETE /payment/:payment_id
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
+
+#### 3.2.26 Test Case ID: BTC-028 Deletes loan
+
+- __Description__
+
+    Deletes loan
+
+- __Expected Results__
+
+   Tests pass
+   
+- __Actual Results__
+
+   Tests pass
+   
+- __Pass/Fail Criteria__
+
+    PASS - Response status code 200
+   
+- __Priority__
+   
+    Medium
+
+- __Type of Test__
+
+    Functional test
