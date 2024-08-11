@@ -5,7 +5,7 @@ describe('Register and Login functionality', () => {
   let client
   let loan
   let payment
-  it('Goes to register page', () => {
+  it('FTC-001 Frontend Registration', () => {
     cy.visit('http://localhost:3000/')
     cy.contains("Get Started").click()
     cy.url().should("include", "/register")
@@ -21,7 +21,7 @@ describe('Register and Login functionality', () => {
     cy.wait("@registerApiCall").its("response.statusCode").should("eq", 200)
   })
 
-  it('Logs in', () => {
+  it('FTC-002 Frontend Login', () => {
     cy.visit('http://localhost:3000/login')
     cy.get('input[name="username"]').type(testerUsername)
     cy.get('input[name="password"]').type(testerPassword)
@@ -31,7 +31,7 @@ describe('Register and Login functionality', () => {
     cy.url().should("include", "/home")
   })
 
-  it('Emails client from /emailClient page', () => {
+  it('FTC-003 Emails client', () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="emailBtn-0"]').click()
     cy.url().should("include", "/emailClient")
@@ -42,13 +42,13 @@ describe('Register and Login functionality', () => {
     cy.wait("@emailjsApiCall").its("response.statusCode").should("eq", 200)
   })
 
-  it('Goes to email tab from sidebar', () => {
+  it('FTC-004 Navigates to /emailClient page', () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="emailClientLink"]').click()
     cy.url().should("include", "/emailClient")
   })
 
-  it("Edits Loans from /Borrower page", () => {
+  it("FTC-005 Edits Loan from /Borrower page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="viewBtn-1"]').should("exist").click()
     cy.url().should("include", "/editLoan")
@@ -67,7 +67,7 @@ describe('Register and Login functionality', () => {
     })
   })
 
-  it("Adds borrower from /borrowers page", () => {
+  it("FTC-006 Adds borrower from /borrowers page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
@@ -89,7 +89,7 @@ describe('Register and Login functionality', () => {
     })
   })
 
-  it("adds new loan and edits loan from /Borrower page", () => {
+  it("FTC-007 Adds new loan and edits from /borrower page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
@@ -122,7 +122,7 @@ describe('Register and Login functionality', () => {
 
     })
   })
-  it("Adds payment from /Borrower page", () => {
+  it("FTC-008 Adds payment from /Borrower page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
@@ -143,7 +143,7 @@ describe('Register and Login functionality', () => {
     })
   })
 
-  it("Deletes payment and deletes loan from /Borrower page", () => {
+  it("FTC-009 Deletes payment and deletes loan from /Borrower page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
@@ -158,7 +158,7 @@ describe('Register and Login functionality', () => {
     cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
   })
 
-  it("Updates client from /Borrower page", () => {
+  it("FTC-010 Updates client from /Borrower page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
@@ -175,7 +175,7 @@ describe('Register and Login functionality', () => {
     cy.wait("@updateClientApiCall").its("response.statusCode").should("eq", 200)
   })
 
-  it("Adds a loan from /loans page", () => {
+  it("FTC-011 Adds a loan from /loans page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="loansLink"]').click()
     cy.contains("Add Loan").click()
@@ -198,7 +198,7 @@ describe('Register and Login functionality', () => {
       expect(loan).to.exist
     })
   })
-  it("Adds payment from /payments page", () => {
+  it("FTC-012 Adds payment from /payments page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="paymentsLink"]').click()
     cy.contains("Add Payment").click()
@@ -219,14 +219,14 @@ describe('Register and Login functionality', () => {
       expect(payment).to.exist
     })
   })
-  it("Deletes payment from /payments page", () => {
+  it("FTC-013 Deletes payment from /payments page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="paymentsLink"]').click()
     cy.intercept("DELETE", `http://localhost:8000/payment/${payment.id}`).as("deletePaymentApiCall")
     cy.get(`[data-cy="deletePaymentBtn-${payment.id}"]`).click()
     cy.wait("@deletePaymentApiCall").its("response.statusCode").should("eq", 200)
   })
-  it("Updates and deletes loan added from /loans page", () => {
+  it("FTC-014 Updates and deletes loan added from /loans page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="loansLink"]').click()
     cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
@@ -239,7 +239,7 @@ describe('Register and Login functionality', () => {
 
 
 
-  it("Deletes client from /borrowers page", () => {
+  it("FTC-015 Deletes client from /borrowers page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
