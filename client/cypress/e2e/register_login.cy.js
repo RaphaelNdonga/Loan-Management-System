@@ -3,6 +3,8 @@ describe('Register and Login functionality', () => {
   let testerUsername = `tester${randomNumber}`
   let testerPassword = "password"
   let client
+  let loan
+  let payment
   it('Goes to register page', () => {
     cy.visit('http://localhost:3000/')
     cy.contains("Get Started").click()
@@ -30,11 +32,7 @@ describe('Register and Login functionality', () => {
   // })
 
   // it('Emails client', () => {
-  //   cy.visit('http://localhost:3000/login')
-  //   cy.get('input[name="username"]').type(testerUsername)
-  //   cy.get('input[name="password"]').type(testerPassword)
-  //   cy.contains("Sign In").click()
-  //   cy.url().should("include", "/home")
+  //   cy.login(testerUsername, testerPassword)
   //   cy.get('[data-cy="emailBtn-0"]').click()
   //   cy.url().should("include", "/emailClient")
   //   cy.get('[data-cy="check-0"]').click()
@@ -45,22 +43,14 @@ describe('Register and Login functionality', () => {
   // })
 
   // it('Goes to email tab from sidebar', () => {
-  //   cy.visit('http://localhost:3000/login')
-  //   cy.get('input[name="username"]').type(testerUsername)
-  //   cy.get('input[name="password"]').type(testerPassword)
-  //   cy.contains("Sign In").click()
-  //   cy.url().should("include", "/home")
+  //   cy.login(testerUsername, testerPassword)
   //   cy.get('[data-cy="emailClientLink"]').click()
   //   cy.url().should("include", "/emailClient")
   // })
 
   // it("Edits Loans", () => {
-  //   cy.visit('http://localhost:3000/login')
-  //   cy.get('input[name="username"]').type(testerUsername)
-  //   cy.get('input[name="password"]').type(testerPassword)
-  //   cy.contains("Sign In").click()
-  //   cy.url().should("include", "/home")
-  //   cy.get('[data-cy="viewBtn"]').should("exist").click()
+  //   cy.login(testerUsername, testerPassword)
+  //   cy.get('[data-cy="viewBtn-1"]').should("exist").click()
   //   cy.url().should("include", "/editLoan")
   //   cy.get('select[name="type"]').select(1)
   //   cy.get('select[name="terms"]').select(1)
@@ -77,43 +67,38 @@ describe('Register and Login functionality', () => {
   //   })
   // })
 
-  // it("Adds borrower", () => {
-  //   cy.visit('http://localhost:3000/login')
-  //   cy.get('input[name="username"]').type(testerUsername)
-  //   cy.get('input[name="password"]').type(testerPassword)
-  //   cy.contains("Sign In").click()
-  //   cy.url().should("include", "/home")
-  //   cy.get('[data-cy="borrowersLink"]').click()
-  //   cy.url().should("include", "/borrowers")
-  //   cy.contains("Add Borrower").click()
-  //   cy.url().should("include", "/addBorrower")
-  //   cy.get('input[name="firstname"]').type("Tester")
-  //   cy.get('input[name="lastname"]').type("Mctester")
-  //   cy.get('input[name="contactNumber"]').type("0712345678")
-  //   cy.get('input[name="address"]').type("Nairobi, Kenya")
-  //   cy.get('input[name="email"]').type("tester@testing.com")
-  //   cy.get('input[name="username"]').type(testerUsername + Math.random())
-  //   cy.intercept("POST", "http://localhost:8000/addClient").as("addClientApiCall")
-  //   cy.contains("Save").click()
-  //   cy.wait("@addClientApiCall").then((interception) => {
-  //     expect(interception.response.statusCode).to.eq(200)
-  //     client = interception.response.body.rows[0]
-  //     expect(client).to.exist
-  //     cy.log("Client: ", JSON.stringify(client))
-  //   })
-  // })
-
-  //TODO: Test for payment functionality
-
-  it("Edits borrower adds new loan, edits and deletes loan", () => {
-    let loan;
+  it("Adds borrower", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="borrowersLink"]').click()
     cy.url().should("include", "/borrowers")
-    cy.get('[data-cy="borrowerLink-1"]').click()
-    cy.url().should("include", "/Borrower/1")
+    cy.contains("Add Borrower").click()
+    cy.url().should("include", "/addBorrower")
+    cy.get('input[name="firstname"]').type("Tester")
+    cy.get('input[name="lastname"]').type("Mctester")
+    cy.get('input[name="contactNumber"]').type("0712345678")
+    cy.get('input[name="address"]').type("Nairobi, Kenya")
+    cy.get('input[name="email"]').type("tester@testing.com")
+    cy.get('input[name="username"]').type(testerUsername + Math.random())
+    cy.intercept("POST", "http://localhost:8000/addClient").as("addClientApiCall")
+    cy.contains("Save").click()
+    cy.wait("@addClientApiCall").then((interception) => {
+      expect(interception.response.statusCode).to.eq(200)
+      client = interception.response.body.rows[0]
+      expect(client).to.exist
+      cy.log("Client: ", JSON.stringify(client))
+    })
+  })
 
-    // ********** Adding loan **********
+  // //TODO: Test for payment functionality
+
+  it("Edits borrower adds new loan and edits loan", () => {
+    cy.login(testerUsername, testerPassword)
+    cy.get('[data-cy="borrowersLink"]').click()
+    cy.url().should("include", "/borrowers")
+    cy.get(`[data-cy="borrowerLink-${client.id}"]`).click()
+    cy.url().should("include", `/Borrower/${client.id}`)
+
+    //   // ********** Adding loan **********
 
     cy.contains("Add Loan").click()
     cy.url().should("include", "/addLoan")
@@ -124,30 +109,54 @@ describe('Register and Login functionality', () => {
     cy.get('input[name="date_released"]').clear().type(`2023-10-12T11:10:10`)
     cy.get('input[name="maturity_date"]').clear().type(`2023-01-01`)
     cy.get('select[name="terms"]').select(1)
-    cy.intercept("POST", `http://localhost:8000/loans/1`).as("addLoanApiCall")
+    cy.intercept("POST", `http://localhost:8000/loans/${client.id}`).as("addLoanApiCall")
     cy.contains("Add New Loan").click()
     cy.wait("@addLoanApiCall").then((interception) => {
       expect(interception.response.statusCode).to.eq(200)
       loan = interception.response.body
       expect(loan).to.exist
-      cy.url().should("include", "/Borrower/1")
+      cy.url().should("include", `/Borrower/${client.id}`)
 
       // ********** UPDATING loan **********
       cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
       cy.url().should("include", "/editLoan")
       // Only necessary check is whether it is in /editLoan page. edit loan functionality has already been tested above
 
-      // ********** DELETING loan **********
-      cy.go('back')
-      cy.url().should("include", "/Borrower/1")
-      cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
-      cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
-      cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
     })
+  })
+  it("Adds payment", () => {
+    cy.login(testerUsername, testerPassword)
+    cy.get('[data-cy="borrowersLink"]').click()
+    cy.url().should("include", "/borrowers")
+    cy.get(`[data-cy="borrowerLink-${client.id}"]`).click()
+    cy.url().should("include", `/Borrower/${client.id}`)
+    cy.get(`[data-cy="paymentLink-${loan.id}"]`).click()
+    cy.url().should("include", `/payment`)
+    cy.get('input[name="collection_date"]').type("2023-01-01")
+    cy.get('input[name="collected_by"]').type("2023-02-01")
+    cy.get('input[name="amount"]').type(loan.balance)
+    cy.get('select[name="method"]').select(1)
+    cy.intercept("POST", `http://localhost:8000/payments/${loan.id}`).as("paymentApiCall")
+    cy.contains("Add Payment").click()
+    cy.wait("@paymentApiCall").then((interception) => {
+      expect(interception.response.statusCode).to.eq(200)
+      payment = interception.response.body
+      expect(payment).to.exist
+    })
+  })
 
-    // it("Adds payment and deletes payment", () => {
-    //   cy.get(`[data-cy="paymentLink-${loan.id}"]`).click()
-    // })
-
+  it("Deletes payment and deletes loan", () => {
+    cy.login(testerUsername, testerPassword)
+    cy.get('[data-cy="borrowersLink"]').click()
+    cy.url().should("include", "/borrowers")
+    cy.get(`[data-cy="borrowerLink-${client.id}"]`).click()
+    cy.url().should("include", `/Borrower/${client.id}`)
+    cy.intercept("DELETE", `http://localhost:8000/payment/${payment.id}`).as("deletePaymentApiCall")
+    cy.get(`[data-cy="deletePaymentBtn-${payment.id}"]`).click()
+    cy.wait("@deletePaymentApiCall").its("response.statusCode").should("eq", 200)
+    cy.url().should("include", `/Borrower/${client.id}`)
+    cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
+    cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click({ force: true })
+    cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
   })
 })

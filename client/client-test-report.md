@@ -71,3 +71,24 @@ It is possible to create a new loan with specific time, but when updating, you c
 
 steps to reproduce:
 /editLoan -> Date released
+
+### Issue 13
+loans that are not approved accept payments
+
+steps to reproduce:
+/Borrower/:clientId
+Add a payment to a loan that is pending approval
+
+### Issue 14
+Selecting the first payment method does not register in the platform.
+
+steps to reproduce:
+/payment
+select the first method, fill in the rest and add payment
+
+
+### Issue 15
+Double transaction. When you click add payment twice, it processes 2 payments before the first one is finished
+steps to reproduce:
+/payment
+select the fill in and click `Add Payment` twice
