@@ -50,6 +50,10 @@ CREATE TABLE payments(
 
 
 -- DATA
+INSERT INTO admin(firstname, lastname, contactnumber, email, address, password, username)
+VALUES('TonyAdmin', 'Stark', 777888, 'tonystarkadmin@gmail.com', 'New York', 'password', 'notTonyStarkAdmin');
+
+-- ADMIN
 -- CLIENTS
 INSERT INTO clients(firstname, lastname, contactnumber, email, address, username)
 VALUES ('Elon', 'Musk', 444333, 'elonmusk@gmail.com', 'Boca Chica, Texas',  'notElonMusk');
@@ -66,21 +70,34 @@ VALUES ('Bruce', 'Banner', 999000, 'bruce@gmail.com', 'New York', 'notHulk');
 INSERT INTO clients(firstname, lastname, contactnumber, email, address, username)
 VALUES ('Stephen', 'Strange', 111222, 'stephen@gmail.com', 'New York', 'notStrange');
 
-UPDATE clients SET firstname = 'Ian Czar', lastname = 'Dino', contactNumber = 112233, address = 'Daraga Albay', email = 'ianczar@gmail.com', username = 'ian2', password = '12345' WHERE id = 9 RETURNING *;
+UPDATE clients SET firstname = 'Ian Czar', lastname = 'Dino', contactNumber = 112233, address = 'Daraga Albay', email = 'ianczar@gmail.com', username = 'ian2' WHERE id = 4 RETURNING *;
 
 -- LOANS
 INSERT INTO loans(client_id, balance, gross_loan, amort, terms, date_released, maturity_date, type, status) 
-VALUES (1, 5000, 5000, 2500, 1, '2023-02-04 05:30:01', '2023-03-04', 'Personal Loan', 'Pending');
+VALUES (2, 5000, 5000, 2500, 1, '2023-02-04 05:30:01', '2023-03-04', 'Personal Loan', 'Pending');
 
-UPDATE loans SET type = 'Salary Loan', balance = 0, gross_loan = 5000, amort = 2500, terms = 2500, date_released = '2023-02-04', maturity_date = '2023-03-04', status = 'Disbursed' WHERE id = 9 RETURNING *;
+UPDATE loans SET type = 'Salary Loan', balance = 0, gross_loan = 5000, amort = 2500, terms = 2500, date_released = '2023-02-04', maturity_date = '2023-03-04', status = 'Disbursed' WHERE id = 4 RETURNING *;
 
 -- PAYMENTS
 INSERT INTO payments(client_id, loan_id, amount, new_balance, collection_date, collected_by, method) 
-VALUES (1, 2, 5000, 0, '2023-03-04', 'admin', 'ATM');
+VALUES (2, 1, 5000, 0, '2023-03-04', 'admin', 'ATM');
+
+-- DELETE should fail because of payment_client constraint
+
+DELETE FROM clients WHERE id=2;
+
+-- DELETE should also fail because of payment_loan constraint
+DELETE FROM loans WHERE id=1;
 
 
 -- JOINED DATA
 SELECT * FROM clients INNER JOIN loans ON clients.id = loans.client_id;
 --! SHOWS BOTH THAT HAS TRUE CONDITION
 
- SELECT * FROM clients AS c LEFT JOIN loans AS t ON c.id = t.client_id WHERE c.id = 1;
+SELECT * FROM clients AS c LEFT JOIN loans AS t ON c.id = t.client_id WHERE c.id = 1;
+
+-- DELETE should now work 
+DELETE FROM payments WHERE client_id=2;
+DELETE FROM loans WHERE id=1;
+DELETE FROM clients WHERE id=2;
+
