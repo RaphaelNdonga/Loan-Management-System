@@ -314,6 +314,30 @@ describe("Loans functionality test", function () {
             })
     })
 
+    test("NOT vulnerable to SQl injection when creating payment for a single loan", function (done) {
+        const SQL = "1,1);--"
+        const payment = {
+            amount: '200',
+            collection_date: '2024-08-08',
+            collected_by: 'some date',
+            new_balance: 4800,
+            method: '',
+            client_id: SQL
+        }
+        request(testUrl)
+            .post(`/payments/${mainLoan.id}`)
+            .send(payment)
+            .set("Authorization", token)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in post /payments/:id", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
+
     test("Gets client payments to a single loan", function (done) {
         request(testUrl)
             .get(`/payments/${mainPayment.client_id}`)

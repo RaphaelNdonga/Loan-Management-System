@@ -121,4 +121,5 @@ The database is vulnerable to a sequal injection at the following endpoints:
 4. PATCH /client/:id
 5. POST /loans
 6. POST /loans/:id
+7. PATCH /loans/:id
 
