@@ -189,13 +189,14 @@ const Loans = ({ setAuth }) => {
                         </td>
                         <td className='border px-4 py-2'>
                           <button
+                            data-cy={`deleteLoanBtn-${loan.id}`}
                             className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-2 rounded focus:outline-none focus:shadow-outline w-full text-sm'
                             onClick={() => deleteLoan(loan.id)}
                           >
                             <DeleteForever className='text-lg' />
                           </button>
                           <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full '>
-                            <Link to={`/editLoan/${loan.id}`}>
+                            <Link data-cy={`editLoanLink-${loan.id}`} to={`/editLoan/${loan.id}`}>
                               <Edit className='text-sm' />
                             </Link>
                           </button>

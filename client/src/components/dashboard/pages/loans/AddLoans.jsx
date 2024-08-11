@@ -104,7 +104,7 @@ const AddLoans = ({ setAuth }) => {
 
       const parseRes = await response.json();
 
-      addSuccessful();
+      // addSuccessful();
 
       setTimeout(() => {
         navigate(`/Borrower/${client_id}`);

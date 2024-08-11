@@ -190,13 +190,24 @@ describe('Register and Login functionality', () => {
     cy.get('input[name="maturity_date"]').clear().type(`2023-01-01`)
     cy.get('select[name="terms"]').select(1)
 
-    cy.intercept("POST", `http://localhost:8000/loans/`).as("addLoanApiCall")
+    cy.intercept("POST", `http://localhost:8000/loans`).as("addLoanApiCall")
     cy.get('[data-cy="addLoanBtn"]').click()
     cy.wait("@addLoanApiCall").then((interception) => {
       expect(interception.response.statusCode).to.eq(200)
       loan = interception.response.body
       expect(loan).to.exist
     })
+  })
+
+  it("Updates and deletes loan added for specific client", () => {
+    cy.login(testerUsername, testerPassword)
+    cy.get('[data-cy="loansLink"]').click()
+    cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
+    cy.url().should("include", "/editLoan")
+    cy.go("back")
+    cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
+    cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
+    cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
   })
 
 
