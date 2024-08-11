@@ -76,7 +76,7 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-    test("NOT vulnerable to SQL injection when adding loan", function (done) {
+    test("NOT vulnerable to SQL injection when adding loan without id", function (done) {
         const SQL = "2024-02-04T02:30:01.000Z');--"
         const loan = {
             amort: "1500.00",
@@ -132,7 +132,33 @@ describe("Loans functionality test", function () {
                 return done()
             })
     })
-
+    test("NOT vulnerable to SQL injection when adding loan with id", function (done) {
+        const SQL = "2024-02-04T02:30:01.000Z');--"
+        const loan = {
+            amort: "3500.00",
+            balance: "7000.00",
+            client_id: 1,
+            date_released: "2022-02-04T02:30:01.000Z",
+            firstname: "Elon",
+            gross_loan: "5000.00",
+            maturity_date: SQL,
+            status: "Pending",
+            terms: 1,
+            type: "Personal Loan"
+        }
+        request(testUrl)
+            .post(`/loans/${1}`)
+            .send(loan)
+            .set("Authorization", token)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in /loans: ", err)
+                    return done(err)
+                }
+                return done()
+            })
+    })
     test("Gets all loans", function (done) {
         request(testUrl)
             .get("/allLoans")
@@ -219,6 +245,33 @@ describe("Loans functionality test", function () {
                 }
                 expect(res.body[0].balance).toBe(loan.balance)
                 expect(res.body[0].amort).toBe(loan.amort)
+                return done()
+            })
+    })
+    test("NOT vulnerable to SQL injection when updating loan", function (done) {
+        const SQL = "inject';--"
+        const loan = {
+            amort: "15000.00",
+            balance: "60000.00",
+            client_id: 1,
+            date_released: "2024-02-04T02:30:01.000Z",
+            firstname: "Elon",
+            gross_loan: "5000.00",
+            maturity_date: "2024-03-03T21:00:00.000Z",
+            status: "Pending",
+            terms: 1,
+            type: SQL
+        }
+        request(testUrl)
+            .patch(`/loans/${mainLoan.id}`)
+            .send(loan)
+            .set("Authorization", token)
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    console.log("Error in patch /loans/:id ", err)
+                    return done(err)
+                }
                 return done()
             })
     })
