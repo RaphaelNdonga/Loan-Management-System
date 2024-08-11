@@ -179,6 +179,7 @@ const Payments = ({ setAuth }) => {
                       </td>
                       <td className='border px-4 py-2'>
                         <button
+                          data-cy={`deletePaymentBtn-${payment.id}`}
                           className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-sm'
                           onClick={() => deletePayment(payment.id)}
                         >

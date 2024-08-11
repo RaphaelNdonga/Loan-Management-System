@@ -92,3 +92,10 @@ Double transaction. When you click add payment twice, it processes 2 payments be
 steps to reproduce:
 /payment
 select the fill in and click `Add Payment` twice
+
+### Issue 16
+Deleting payment from /payments method does not work correctly. On the backend, it calls DELETE /loans with loan id instead of DELETE /payment with payment id
+
+steps to reproduce:
+visit /payments, 
+delete one of the payments
