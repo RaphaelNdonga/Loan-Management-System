@@ -50,7 +50,7 @@ describe('Register and Login functionality', () => {
 
   it("FTC-005 Edits Loan from /Borrower page", () => {
     cy.login(testerUsername, testerPassword)
-    cy.get('[data-cy="viewBtn-1"]').should("exist").click()
+    cy.get('[data-cy="viewBtn-0"]').should("exist").click()
     cy.url().should("include", "/editLoan")
     cy.get('select[name="type"]').select(1)
     cy.get('select[name="terms"]').select(1)
@@ -222,9 +222,9 @@ describe('Register and Login functionality', () => {
   it("FTC-013 Deletes payment from /payments page", () => {
     cy.login(testerUsername, testerPassword)
     cy.get('[data-cy="paymentsLink"]').click()
-    cy.intercept("DELETE", `http://localhost:8000/loans/${payment.id}`).as("deletePaymentApiCall2")
+    cy.intercept("DELETE", `http://localhost:8000/payment/${payment.id}`).as("deletePaymentApiCall")
     cy.get(`[data-cy="deletePaymentBtn-${payment.id}"]`).click()
-    cy.wait("@deletePaymentApiCall2").its("response.statusCode").should("eq", 200)
+    cy.wait("@deletePaymentApiCall").its("response.statusCode").should("eq", 200)
   })
   it("FTC-014 Updates and deletes loan added from /loans page", () => {
     cy.login(testerUsername, testerPassword)
@@ -232,9 +232,9 @@ describe('Register and Login functionality', () => {
     cy.get(`[data-cy="editLoanLink-${loan.id}"]`).click()
     cy.url().should("include", "/editLoan")
     cy.go("back")
-    cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall2")
+    cy.intercept("DELETE", `http://localhost:8000/loans/${loan.id}`).as("deleteLoanApiCall")
     cy.get(`[data-cy="deleteLoanBtn-${loan.id}"]`).click()
-    cy.wait("@deleteLoanApiCall2").its("response.statusCode").should("eq", 200)
+    cy.wait("@deleteLoanApiCall").its("response.statusCode").should("eq", 200)
   })
 
 
