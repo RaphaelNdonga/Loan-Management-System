@@ -103,11 +103,11 @@ Test Steps
 
     Functional test
 
-#### 3.1.3 Test Case ID: FTC-003 Emails client
+#### 3.1.3 Test Case ID: FTC-003 Emails client through emailjs
 
 - __Description__
 
-Sends email to client from /emailClient page
+Sends email to client from /emailClient page through emailjs
    
 - __Expected Results__
 
