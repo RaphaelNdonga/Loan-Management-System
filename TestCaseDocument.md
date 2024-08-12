@@ -9,6 +9,10 @@ Project Name: Loan Management System
    Frontend, Backend and Database
 
 ## 2. TEST ENVIRONMENT
+
+    Frontend testing technologies used: Cypress
+    Backend testing technologies used: Jest, Supertest
+
    ### 2.1 Frontend setup
    Navigate to /client
    Run:
